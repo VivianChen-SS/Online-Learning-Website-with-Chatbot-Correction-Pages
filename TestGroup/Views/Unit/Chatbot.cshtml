@@ -1,0 +1,109 @@
+﻿@model TestGroup.Models.Unit
+@{
+    ViewBag.Title = "概念構圖";
+}
+<style>
+    .whiteBlockHead {
+        border-radius: 30px 30px 0px 0px;
+        margin: -30px -30px 0px -30px;
+        background-color: rgba(237, 106, 90,0.7);
+        text-align: center;
+        color: white;
+        font-weight: 900;
+        background-image: url("https://i.ibb.co/7Q6GhpW/cross.png");
+        background-repeat: no-repeat;
+        background-size: 30% 100%;
+    }
+
+    df-messenger {
+        --df-messenger-bot-message: #878fac;
+        --df-messenger-button-titlebar-color: #80b3b3;
+        --df-messenger-chat-background-color: #fafafa;
+        --df-messenger-font-color: white;
+        --df-messenger-send-icon: #878fac;
+        --df-messenger-user-message: #80b3b3;
+    }
+</style>
+<h1>@ViewBag.week</h1>
+<h1>@ViewBag.questionOrder</h1>
+<div class="whiteBlock shadow" style="margin:auto 40px;position:relative">
+    <div class="whiteBlockHead">
+        <br />
+        <h2 style="font-size:40px;margin:-10px auto -10px auto"> ヽ(*。>Д<)o゜ 答錯了喔！ </h2>
+
+        @if (Model.MultipleChoice == true)
+        {
+            string[] mapAns = { "?", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
+            string ans = mapAns[int.Parse(Model.Answer)];
+            <h2><b>正確解答：</b> @ans <br></h2>
+        }
+        else
+        {
+            <b>正確解答：</b>
+            <h2>@Model.Answer.Split(',').First() <br> </h2>
+        }
+
+
+
+        <p>
+            <small>
+                @if (Model.MultipleChoice != true)
+                {
+                    @:回答 @Model.Answer 都算對，
+                }
+                如果你覺得自己的答案也沒有錯，請 <a href="/Home/Contact" style="color: #36c9c6"><strong>聯絡學姊</strong></a>
+            </small> !
+        </p>
+    </div>
+    <p>
+        別氣餒！我是<b>右下角的聊天室↘</b><br />
+        <small>
+            跟我聊完了以後，你就明白這題啦！
+            <ul>
+                <li>請完成聊天室內容，聊天室會在最後給你<b>完成證明按鈕</b>，請務必點擊<b>送出紀錄</b>。</li>
+                <li>可點擊聊天室icon打開、關閉聊天室，<b>聊天紀錄會保留</b>。</li>
+                <li>若重整頁面聊天紀錄<b>會不見！</b></li>
+                <li>如果聊到一半卡住，請嘗試重整頁面，重新開始對話。如果一直卡住，請<a href="/Home/Contact"><strong>聯絡學姊</strong></a>喔！ </li>
+            </ul>
+        </small>
+    </p>
+    <textarea name="answer" rows="6" cols="50" placeholder="【提醒】聊天室內容送出後不可修改，請一次打完以後再按Enter。回答內容較長者，可以在這裡打完後複製貼上。" style="min-width:100%"></textarea>
+    <hr class="goldLine">
+</div>
+
+
+@*以下是chatbot的部分*@
+@{ string agentID = Model.MultipleChatbot == true ? ViewBag.AgentID : Model.ChatbotAgentId;}
+<df-messenger intent="@Model.ChatbotIntent"
+              chat-title="@(@ViewBag.week) 的 @(@ViewBag.questionOrder)"
+              agent-id="@agentID"
+              language-code="zh-tw"
+              chat-icon="https://i.ibb.co/HFBF1r2/icon.png"></df-messenger>
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        window.addEventListener('dfMessengerLoaded', function (event) {
+            $r1 = document.querySelector("df-messenger");
+            $r2 = $r1.shadowRoot.querySelector("df-messenger-chat");
+            $r3 = $r2.shadowRoot.querySelector("df-messenger-user-input"); //for other mods
+
+            var sheet = new CSSStyleSheet;
+            sheet.replaceSync(`div.chat-wrapper[opened="true"] { height: 93%; width:50%;min-width:480px;bottom:0vh }`);
+            $r2.shadowRoot.adoptedStyleSheets = [sheet];
+
+            document.querySelector('df-messenger').shadowRoot.querySelector('.df-messenger-wrapper').querySelector('#widgetIcon').style.bottom = "5vh"
+            document.querySelector('df-messenger').shadowRoot.querySelector('.df-messenger-wrapper').querySelector('#widgetIcon').style.right = "5vw"
+        });
+    });
+
+
+    const dfMessenger = document.querySelector('df-messenger');
+    dfMessenger.addEventListener('df-button-clicked', function (event) {
+        //alert(event.detail.element.text);
+        if (event.detail.element.text == "請點我！送出紀錄！") {
+            window.location.href = '@Url.Action("ExtendQ", "Unit", new { secret = ViewBag.secret })'
+        }
+    });
+</script>
+@*以上是chatbot的部分*@

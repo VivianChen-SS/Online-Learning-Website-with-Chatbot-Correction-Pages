@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "完成";
+}
+<div class="whiteBlock shadow" style="margin:30px 5% 0% 5%">
+    <h2>恭喜你，完成該單元的影片&題目嘍~~ (o゜▽゜)o☆</h2>
+    <hr class="goldLine" />
+    <p>
+        請 <b>回首頁</b> 接續下一單元的練習！ <br />
+        如果本周進度都完成了，直接 <b>登出</b> 就可以嘍~~
+        <br /> <br />
+    </p>
+
+    <div class="row">
+        <div class="col-xs-offset-1 col-xs-5"> @Html.ActionLink("回首頁", "Index", "Home", null, new { @class = "btn default" }) </div>
+        <div class="col-xs-5"> @Html.ActionLink("登出", "Logout", "Home", null, new { @class = "btn default" }) </div>
+    </div>
+
+</div>

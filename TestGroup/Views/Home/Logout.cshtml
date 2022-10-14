@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "登出";
+}
+<link href="~/Content/midleBlock.css" rel="stylesheet" />
+
+<div class="middleBlock shadow2">
+    <h2 class="col-md-offset-1">BYE~~</h2>
+    <hr class="wideLine" />
+    <p class="col-md-offset-1">你已經登出了，想再回來，請先登入。</p>
+    @Html.ActionLink("登入", "Login", null, new { @class = "btn default" })
+</div>
+
+

@@ -1,0 +1,148 @@
+﻿@model TestGroup.Models.StudentTestGroup_Unit_Junction
+
+<style>
+    .Video:before {
+        background-image: url( @ViewBag.Video );
+    }
+    .Question:before {
+        background-image: url(@ViewBag.Question);
+    }
+    .Conceptmap:before {
+        background-image: url(@ViewBag.Conceptmap);
+    }
+    .ExtendQ:before {
+        background-image: url(@ViewBag.ExtendQ);
+    }
+    .Finished:before {
+        background-image: url(@ViewBag.Finished);
+    }
+</style>
+
+<div class="whiteBlock progressBlock shadow2">
+    <h2>@ViewBag.week __ @ViewBag.questionOrder</h2>
+    <hr class="goldLine" />
+    <ul>
+        <li class=" timeLine Video ">
+            <div class="stepHeader">教學影片</div>
+            <p class="timeLineText timeLineShadow">
+                @if (Model.VideoWatched)
+                {
+                    <span class=" glyphicon glyphicon-check finished">已完成</span> <br />
+                    @Html.ActionLink("回顧影片", "Resources", "Home", null, new { @class = "glyphicon glyphicon-link text-right" })
+                }
+                else
+                {
+                    <span class=" glyphicon glyphicon-hourglass unfinished">未完成</span> <br />
+                    @Html.ActionLink("開始學習吧！", "WatchVideo", new { id = Model.UnitID }, new { @class = "glyphicon glyphicon-link text-right" })
+                }
+            </p>
+        </li>
+        <li class="timeLine Question">
+            <div class="stepHeader">答題</div>
+            <p class="timeLineText timeLineShadow">
+                @if (Model.Result == null)
+                {
+                    <span class=" glyphicon glyphicon-hourglass unfinished">未完成</span> <br />
+                    if (Model.VideoWatched)
+                    {
+                        @Html.ActionLink("開始答題吧！", "Question", null, new { @class = "glyphicon glyphicon-link text-right" })
+                    }
+                }
+                else if (Model.Result == true)
+                {
+                    <span class=" glyphicon glyphicon-thumbs-up finished">太棒了！答對嘍~~~</span> <br />
+                }
+                else
+                {
+                    <span class="glyphicon glyphicon-remove-circle wrong">答錯了〒▽〒</span> <br />
+                    <b>題目：</b>
+                    @Model.Unit.Question <br>
+
+                    if (Model.Unit.MultipleChoice == true)
+                    {
+                        string[] mapAns = { "?", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
+                        string ans = mapAns[int.Parse(Model.Unit.Answer)];
+                        string yourAns = mapAns[int.Parse(Model.Answer)];
+                        <b>正確解答：</b> @ans <br>
+                        <b>你的回答：</b> @yourAns <br />
+                    }
+                    else
+                    {
+                        <b>正確解答：</b>
+                        @Model.Unit.Answer.Split(',').First() <br>
+                        <b>你的回答：</b>
+                        @Model.Answer <br />
+                    }
+                    @:---------------------------------------------------------------------- <br />
+                    <b>別氣餒！再接再勵！！(ง •̀_•́)ง</b> @:如果有不懂的地方，隨時歡迎來發問喔！！
+                    @Html.ActionLink("我要發問！", "Contact", "Home", null, new { @class = "glyphicon glyphicon-link text-right" })
+                }
+
+            </p>
+        </li>
+        @if (Model.Result == false)
+        {
+            <li class="timeLine Conceptmap ">
+                <div class="stepHeader">找聊天機器人聊天</div>
+                <p class="timeLineText timeLineShadow">
+                    @if (Model.ChatbotFinished)
+                    {
+                        <span class=" glyphicon glyphicon-check finished">已完成</span> <br />
+                    }
+                    else
+                    {
+                        <span class=" glyphicon glyphicon-hourglass unfinished">未完成</span> <br />
+                        @Html.ActionLink("去釐清弄錯的觀念吧！", "Chatbot", null, new { @class = "glyphicon glyphicon-link text-right" })
+                    }
+                </p>
+            </li>
+
+            <li class="timeLine ExtendQ ">
+                <div class="stepHeader">相似題</div>
+                <p class="timeLineText timeLineShadow">
+                    @if (Model.ExtendQuestionResult == true)
+                    {
+                        <span class=" glyphicon glyphicon-thumbs-up finished">太棒了！答對嘍~~~</span> <br />
+                    }
+                    else if (Model.ExtendQuestionResult == false)
+                    {
+
+                        <span class="glyphicon glyphicon-remove-circle wrong">還是答錯了〒▽〒</span> <br />
+                        @Html.ActionLink("去複習觀念吧QAQ~~~~", "Resources", "Home", null, new { @class = "glyphicon glyphicon-link text-right" })
+                    }
+                    else if (Model.ChatbotFinished && Model.ExtendQuestionAnswer == null)
+                    {
+                        <span class=" glyphicon glyphicon-hourglass unfinished">未完成</span> <br />
+                        @Html.ActionLink("去答題！", "WatchVideo", new { id = Model.UnitID }, new { @class = "glyphicon glyphicon-link text-right" })
+                    }
+                    else
+                    {
+                        <span class=" glyphicon glyphicon-hourglass unfinished">未完成</span> <br />
+                    }
+                </p>
+            </li>
+
+        }
+
+        <li class="timeLine Finished ">
+            <div class="stepHeader">完成</div>
+            <p class="timeLineText timeLineShadow">
+                @if (Model.Result == true || Model.ExtendQuestionAnswer != null)
+                {
+                    <span class=" glyphicon glyphicon-check finished">恭喜你，該單元完成了</span><br />
+                    @: 恭喜老爺、賀喜老爺，本單元所有的練習全都結束嘍~~~ <br />影片、題目回顧請點擊以下連結：<br />
+                    @Html.ActionLink("單元回顧", "Resources", "Home", null, new { @class = "glyphicon glyphicon-link text-right" })
+                }
+                else
+                {
+                    <span class=" glyphicon glyphicon-hourglass unfinished">未完成</span> <br />
+                }
+            </p>
+
+        </li>
+
+
+
+
+    </ul>
+</div>

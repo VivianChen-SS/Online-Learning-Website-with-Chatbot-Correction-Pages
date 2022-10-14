@@ -1,0 +1,35 @@
+﻿
+@if (ViewBag.Result)
+{
+    <div class="whiteBlock shadow" style="background-color: rgba(135, 158, 97,0.7); color:white; text-align:center">
+        <h2>答對嘍~~ 啾咪 (o゜▽゜)o☆ 答案是 @ViewBag.Answer</h2>
+        <hr class="goldLine" />
+        <p>
+            <h1>本單元練習</h1><h1>已經結束！</h1><br />
+            請 <b>回首頁</b> 接續下一單元的練習！ <br />
+            如果本周進度都完成了，直接 <b>登出</b> 就可以嘍~~
+            <br /> <br />
+        </p>
+        <div class="row">
+            <div class="col-xs-offset-1 col-xs-5"> @Html.ActionLink("回首頁", "Index", "Home", null, new { @class = "btn default" }) </div>
+            <div class="col-xs-5"> @Html.ActionLink("登出", "Logout", "Home", null, new { @class = "btn default" }) </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="whiteBlock shadow" style="background-color: rgba(237, 106, 90,0.7); color: white; text-align: center ">
+        <h2>吼！答錯了啦 (╬▔皿▔)╯ 下次小心點！答案是 @ViewBag.Answer 啦！</h2>
+        <hr class="goldLine" />
+        <p>
+            <h1>本單元練習</h1><h1>已經結束！</h1> <br />
+            請 <b>回首頁</b> 接續下一單元的練習！ <br />
+            如果本周進度都完成了，直接 <b>登出</b> 就可以嘍~~
+            <br /> <br />
+        </p>
+        <div class="row">
+            <div class="col-xs-offset-1 col-xs-5"> @Html.ActionLink("回首頁", "Index", "Home", null, new { @class = "btn default" }) </div>
+            <div class="col-xs-5"> @Html.ActionLink("登出", "Logout", "Home", null, new { @class = "btn default" }) </div>
+        </div>
+    </div>
+}

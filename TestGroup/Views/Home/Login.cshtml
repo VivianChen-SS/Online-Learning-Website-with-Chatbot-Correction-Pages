@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "登入";
+}
+<link href="~/Content/midleBlock.css" rel="stylesheet" />
+<style>
+    div.chat-wrapper[opened="true"] {
+        height: 73% !important;
+        width: 35% !important;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal middleBlock shadow2">
+        <h2 class="col-md-offset-1">登入</h2>
+        <hr class="wideLine" />
+        <div class="form-group">
+            <label class="control-label col-md-4" for="StudentID"><b>請輸入學號：</b></label>
+            <div class="col-md-8">
+                <input class="form-control text-box single-line" type="text" name="id" required>
+                @if (ViewBag.findNone != null)
+                {
+                    <p>沒有這個學號</p>
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="登入" class="btn default" />
+            </div>
+        </div>
+    </div>
+}

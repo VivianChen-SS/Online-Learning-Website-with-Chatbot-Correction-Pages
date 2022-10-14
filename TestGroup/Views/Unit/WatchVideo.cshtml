@@ -1,0 +1,53 @@
+﻿@model TestGroup.Models.Unit
+@{
+    ViewBag.Title = "教學影片";
+}
+
+<h1>@ViewBag.week</h1>
+<h1>@ViewBag.questionOrder</h1>
+
+@* 其實我原本想要這樣寫，但是又上繳的pop out window很擾人，所以只好寫死長寬，position改成absolute，拿一個div遮住 *@
+@*<div class="row">
+        <iframe src="@Model.VideoLink" class="col-xs-offset-1 col-xs-10" style="height:70vh" allow="autoplay; " allowfullscreen></iframe>
+        <div style="width: 80px; height: 80px; position: absolute; opacity: 0; right: 0px; top: 0px;"> </div>
+    </div>*@
+
+<div style="width: 800px; height: 480px; position: relative;margin:auto">
+    <iframe src="@Model.VideoLink" class="shadow" width="800" height="480" frameborder="0" scrolling="no" seamless=""  allowfullscreen></iframe>
+    <div style="width: 80px; height: 80px; position: absolute; opacity: 0; right: 0px; top: 0px;"> </div>
+</div>
+
+
+<div class="whiteBlock" style="margin:10px 5vw">
+    <b>片長：</b>@Model.VideoLength 分鐘
+    @{double hoursLeft = Math.Round(Model.VideoEndDate.Value.Subtract(DateTime.Now).TotalHours, 2); }
+    <br /><b>觀看影片期限：</b>@Model.VideoStartDate.Value.ToShortDateString() ~ @Model.VideoEndDate.Value.ToShortDateString()，<b>剩餘</b> @(Math.Round(hoursLeft/24)) <b>天</b>  @(Math.Round(hoursLeft % 24)) <b>小時</b>
+    <br /><b>關鍵字：</b>@Model.KeyWords
+
+
+
+    @*<div class="row ">
+
+            <div class="col-md-offset-1 col-md-7 col-sm-7">
+                <b>觀看影片期限：</b>@Model.VideoStartDate.Value.ToShortDateString() ~ @Model.VideoEndDate.Value.ToShortDateString()
+                剩餘 @(Math.Round(hoursLeft/24)) 天 @(hoursLeft % 24) 小時
+            </div>
+            <div class="col-md-4 col-sm-4"><b>片長：</b>@Model.VideoLength 分鐘</div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-1 col-md-11"><b>關鍵字：</b>@Model.KeyWords</div>
+        </div>*@
+    <hr class="goldLine" />
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            <div>
+                <input type="hidden" name="startTime" value="@DateTime.Now">
+                <input type="submit" value="影片看完了~~~" class="btn default" onclick="return confirm('⚠確認看完了？真的都弄懂了？\n答題時影片會被縮到只有「學生證大小」的小抄，只能做參考用喔！\n\n( 不過別擔心，完成此單元練習後影片會在「單元回顧」中再度出現。 )')" />
+            </div>
+        </div>
+    }
+</div>
+
+
+

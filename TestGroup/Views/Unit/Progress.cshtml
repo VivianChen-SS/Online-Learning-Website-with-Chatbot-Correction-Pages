@@ -1,0 +1,192 @@
+﻿@model IEnumerable<TestGroup.Models.UnitTitleViewModels>
+@{
+    ViewBag.Title = "我的進度";
+}
+
+<style>
+    .unitProgress {
+        background-color: rgba(255, 255, 255,0.9);
+        padding: 30px;
+        border-radius: 30px;
+        position: relative;
+    }
+
+    .timeLine {
+        list-style: none;
+        padding-left: 30px;
+    }
+
+    .timeLine {
+        padding-bottom: 1.5rem;
+        border-left: 5px solid #396060;
+        position: relative;
+        padding-left: 20px;
+        margin-left: 10px;
+    }
+
+        .timeLine:last-child {
+            border: 0px;
+            padding-bottom: 0;
+        }
+
+        .timeLine:before {
+            content: '';
+            background-size: 51px 51px;
+            background-position-x: -1px;
+            background-position-y: -1px;
+            width: 50px;
+            height: 50px;
+            box-shadow: 3px 3px 0px #bab5f8;
+            box-shadow: 3px 3px 0px #bab5f8;
+            border-radius: 50%;
+            position: absolute;
+            left: -26px;
+            top: 0px;
+        }
+
+
+
+    .stepHeader {
+        color: #2a2839;
+        font-weight: 900;
+        font-size: 30px;
+        color: #396060;
+        margin-left: 30px;
+        text-shadow: 2px 2px 3px #d6d6c2;
+    }
+
+    .timeLineText {
+        /*box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;*/
+        color: #396060;
+        font-size: 20px;
+        line-height: 1.5;
+        margin: -20px 0px 0px 30px;
+        padding: 30px 50px 15px 20px;
+        width: fit-content;
+        background-color: white
+    }
+
+    .timeLineShadow {
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    }
+
+    .link {
+        font-size: 15px;
+        margin: 20px -30px 0px 0px;
+        text-align: right;
+        width: inherit;
+        font-weight: bolder;
+    }
+
+    .finished {
+        color: #99cc00;
+        font-size: 25px;
+        font-weight: bolder;
+    }
+
+    .wrong {
+        color: #ff6600;
+        font-size: 25px;
+        font-weight: bolder;
+    }
+
+    .unfinished {
+        color: #b3b3b3;
+        font-size: 25px;
+        font-weight: bolder;
+    }
+@*</style>
+<style>*@
+    .progressBlock {
+        margin: 0% 4% 0% 4%;
+        font-size: 25px
+    }
+
+    .unitLinkP {
+        padding: 5px;
+        /*    border: solid;
+        border-radius:10px;*/
+        /*border-color: #e60073;*/
+        font-size: 22px;
+        font-weight: 300;
+        line-height: 1.9;
+        text-align: center;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .unitLinkA {
+        position: relative;
+        text-decoration: none;
+        display: inline-block;
+        color: black;
+        padding: 0 1px;
+        transition: color ease 0.3s;
+        font-weight: 900;
+    }
+
+        .unitLinkA::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            width: 100%;
+            height: 0%;
+            left: 0;
+            bottom: 0;
+            /*background-color: #396060;*/
+
+            text-decoration: none;
+        }
+
+        .unitLinkA:hover {
+            color: #DAA520;
+            background-color: #396060;
+            transition: all ease 0.6s;
+            text-decoration: none;
+            font-weight: 900;
+        }
+
+
+            .unitLinkA:hover::after {
+                height: 100%;
+                text-decoration: none;
+                font-weight: bolder;
+            }
+</style>
+
+<h1>完成進度</h1>
+<br />
+
+<h1 style="font-size: 25px; line-height: 40px;">總共答對 @ViewBag.correct 題</h1>
+<h1 style="font-size: 25px; line-height: 40px;">答錯 @ViewBag.incorrect 題</h1>
+<h1 style="font-size: 25px; line-height: 40px; ">,</h1>
+<h1 style="font-size: 25px; line-height: 40px; ">還有 @ViewBag.unfinished 題未完成</h1>
+
+
+<br />
+<div class="whiteBlock progressBlock shadow2">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3 col-sm-4 col-xs-6">
+                <p>
+                    @Ajax.ActionLink(string.Format(item.week + " 的 " + item.number), "UnitProcess",
+                    new { id = item.unitID },
+                    new AjaxOptions
+                    {
+                        HttpMethod = "POST",
+                        UpdateTargetId = "displayUnitProcess",
+                        InsertionMode = InsertionMode.Replace
+                    },
+                    new { @class = "unitLinkA" })
+                </p>
+            </div>
+        }
+    </div>
+</div>
+<hr class="goldLine" />
+<div id="displayUnitProcess">@Html.Action("UnitProcess", new { id = ViewBag.selectedUnitID })</div>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>

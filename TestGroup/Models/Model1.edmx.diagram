@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f3f18ea8ab244d169bf0114abad8ac56" Name="Diagram1">
+        <EntityTypeShape EntityType="controlgroupModel.StudentTestGroup" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="controlgroupModel.StudentTestGroup_Unit_Junction" Width="2.25" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="controlgroupModel.Unit" Width="1.5" PointX="6.625" PointY="0.625" IsExpanded="true" />
+        <AssociationConnector Association="controlgroupModel.FK_StudentTestGroup_Unit_Junction_StudentTestGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="controlgroupModel.FK_StudentTestGroup_Unit_Junction_Unit" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="controlgroupModel.ExtendQuestion" Width="1.5" PointX="8.875" PointY="2.375" />
+        <AssociationConnector Association="controlgroupModel.FK_ExtendQuestion_Unit" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

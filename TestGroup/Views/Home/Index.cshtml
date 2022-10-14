@@ -1,0 +1,102 @@
+﻿@model IEnumerable<TestGroup.Models.Unit>
+
+@{
+    ViewBag.Title = "首頁";
+}
+<style>
+    .week {
+        display: block;
+        margin: auto auto 20px auto;
+        max-width: 90%;
+        align-items: center;
+        background-color: #396060;
+        border-radius: 30px;
+        padding: 20px;
+        font-size: 20px;
+        color: white;
+    }
+
+    .weekText {
+        font-size: 50px;
+        color: #DAA520;
+        font-weight: 900;
+    }
+
+    .questionNumber {
+        font-weight: 900;
+        font-size: 30px;
+        padding-top: 10px;
+        text-align: center
+    }
+
+    .keyWords {
+        text-align: left;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
+<h1>歡迎</h1>
+<h1>@ViewBag.StudentName</h1>
+<h1>!</h1>
+<br />
+<div name="allThreeWeeks" class="container">
+    @{
+        string[] week = { "沒有第零週", "第一週", "第二週", "第三週", "第四週" };
+        string[] questionOrder = { "沒有第零題", "第一題", "第二題", "第三題" };
+        int count = 0;
+    }
+
+    @for (int i = 1; i <= Model.Last().Week; i++)
+    {
+        <div name="week_@i" class="row week shadow2">
+            <div class="col-md-1 weekText">@week[i]</div>
+            <div class="col-md-11">
+                @for (int j = count; j < Model.Count(); j++)
+                {
+                    TestGroup.Models.Unit unit = Model.ToList().ElementAt(j);
+                    if (unit.Week == i)
+                    {
+                        <div class="row">
+                            <div class="col-md-2 questionNumber">@questionOrder[unit.Number]</div>
+                            <div class="col-md-3 keyWords">@unit.KeyWords</div>
+                            <div class="col-md-5">
+                                影片：@unit.VideoStartDate.Value.ToShortDateString() ~ @unit.VideoEndDate.Value.AddDays(-1).ToShortDateString()
+                                <br />答題：@unit.VideoEndDate.Value.ToShortDateString() 實習課上課回答
+                                <br />訂正：@unit.ConceptMapStartDate.Value.ToShortDateString() ~ @unit.ConceptMapEndDate.Value.AddDays(-1).ToShortDateString()
+                            </div>
+                            <div class="col-md-2 row">
+                                @if (unit.VideoStartDate.Value < DateTime.Now && unit.ConceptMapEndDate > DateTime.Now)
+                                {
+                                    <div class="col-md-12" style="margin-bottom:10px">@Html.ActionLink("開始學習", "WatchVideo", "Unit", new { id = unit.UnitID }, new { @class = "btn default" })</div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-12" style="margin-bottom:10px"><a class="btn default" href="~/Home/Index" onclick="return alert('該單元時段未開放 (o*｡_｡)o sorry')">開始學習</a></div>
+                                }
+                                <div class="col-md-12">@Html.ActionLink("查看紀錄", "Progress", "Unit", new { id = unit.UnitID }, new { @class = "btn default" })</div>
+                            </div>
+                        </div>
+                        <hr class="goldLine" />
+                        count++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            </div>
+        </div>
+
+    }
+</div>
+
+
+@if (ViewBag.doAlert != null)
+{
+    <script>
+    var msg = "@ViewBag.doAlert";
+    alert(msg);
+    </script>
+}

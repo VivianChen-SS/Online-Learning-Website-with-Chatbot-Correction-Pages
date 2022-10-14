@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "答對";
+}
+<style>
+    .whiteBlockHead {
+        border-radius: 30px 30px 0px 0px;
+        margin: -30px -30px 0px -30px;
+        background-color: rgba(135, 158, 97,0.7);
+        text-align: center;
+        color: white;
+        font-weight: 900;
+        background-image: url("https://i.ibb.co/3cnFzhQ/greencheck.png");
+        background-repeat: no-repeat;
+        background-size: 20% 110%;
+    }
+</style>
+<div class="whiteBlock shadow" style="margin:30px 5% 0% 5%">
+    <div class="whiteBlockHead">
+        <br>
+        <h2>（＾∀＾●）ﾉｼ 恭喜答對！</h2>
+        <p>好厲害！！能在短時間內就學會，你超棒的！</p>
+    </div>
+    <hr class="goldLine" />
+    <p>
+        請 <b>回首頁</b> 接續下一單元的練習！ <br />
+        如果本周進度都完成了，直接 <b>登出</b> 就可以嘍~~
+        <br /> <br />
+    </p>
+    <div class="row">
+        <div class="col-xs-6"> @Html.ActionLink("回首頁", "Index", "Home", null, new { @class = "btn default" }) </div>
+        <div class="col-xs-6"> @Html.ActionLink("登出", "Logout", "Home", null, new { @class = "btn default" }) </div>
+    </div>
+</div>

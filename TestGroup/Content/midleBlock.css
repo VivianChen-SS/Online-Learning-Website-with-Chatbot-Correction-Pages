@@ -1,0 +1,17 @@
+﻿.middleBlock {
+    display: block;
+    margin: 100px auto 120px auto;
+    max-width: 40vw;
+    min-width: fit-content;
+    align-items: center;
+    background-color: #ffcccc;
+    border-radius: 30px;
+    padding: 10px;
+    font-size: 20px
+}
+
+.wideLine {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(153, 0, 0), rgba(0, 0, 0, 0));
+}

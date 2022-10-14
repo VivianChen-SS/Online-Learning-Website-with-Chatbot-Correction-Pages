@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Error :(";
+}
+
+<link href="~/Content/midleBlock.css" rel="stylesheet" />
+
+<div class="middleBlock shadow2 text-center">
+    <h1>E</h1><h1>R</h1><h1>R</h1><h1>O</h1><h1>R</h1>
+    <hr class="wideLine" />
+
+    <h3>恭喜你！ <strong>玩壞了我的網頁🙃</strong></h3>
+    <img src="~/picture/error.png" />
+    <h3>我想你應該很納悶到底</h3>
+    <h1 class="text-center"><strong>花生🥜了什麼樹🌳</strong>？？</h1>
+    <h4>同學你不孤單，寫這網頁的我也<b>很想知道</b> QAQ</h4>
+    <h4>所以如果網頁卡得很嚴重的話，請一定要 <a href="/Home/Contact" style="color: #36c9c6"><strong>聯絡學姊</strong></a>！！感謝你喔！！</h4>
+    <h4><del>啊如果沒很嚴重的話就 <b>當作什麼事都沒發生</b>............</del></h4>
+
+    @Html.ActionLink("回首頁", "Index", "Home", null, new { @class = "btn default" })
+</div>

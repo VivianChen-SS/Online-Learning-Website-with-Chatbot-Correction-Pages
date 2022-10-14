@@ -1,0 +1,49 @@
+﻿.btn {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    border: 3px solid #669999;
+    background-color: white;
+    border-radius: 20%;
+    font-size: 20px;
+    font-weight: bold;
+    width: fit-content;
+    padding: 1px 10px 1px 10px;
+    text-decoration: none;
+}
+
+.default {
+    border-color: #669999;
+    color: #669999;
+}
+
+    .default:hover {
+        background-color: #669999;
+        color: white;
+        font-weight: 900;
+        text-decoration: none;
+    }
+
+.yes {
+    border-color: #669900;
+    color: #669900;
+}
+
+    .yes:hover {
+        background-color: #669900;
+        color: white;
+        font-weight: 900;
+        text-decoration: none;
+    }
+
+.no {
+    border-color: #cc3300;
+    color: #cc3300;
+}
+
+    .no:hover {
+        background-color: #cc3300;
+        color: white;
+        font-weight: 900;
+        text-decoration: none;
+    }

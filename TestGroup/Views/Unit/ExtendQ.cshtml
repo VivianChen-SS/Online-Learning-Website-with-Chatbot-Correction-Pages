@@ -1,0 +1,79 @@
+﻿@model TestGroup.Models.ExtendQuestion
+
+@{
+    ViewBag.Title = "相似題目";
+}
+<h1>@ViewBag.week</h1>
+<h1>@ViewBag.questionOrder</h1>
+
+<div class="container" style="min-height:400px">
+
+    <div class="whiteBlock shadow">
+        <h3><b>概念構圖 & 解釋</b></h3>
+        <h4>@Html.Raw(ViewBag.conceptMapDescription)</h4> <br />
+        @* 【注意】以下圖片是放在google硬碟https://drive.google.com/drive/folders/1RmAtSzaMKTU0rlaqr3rKMBR9PGVpOZUA?usp=sharing，用google寫好的方式embed進來的 *@
+        <div style=" position: relative; max-width: 100%;">
+            <iframe src="@(ViewBag.conceptMapLink)" style="width: 100%; height: 400px" allow="autoplay"></iframe>
+            <div style="width: 60px; height: 60px; position: absolute; opacity: 0; right: 0px; top: 0px;"> </div>
+        </div>
+
+        <hr class="goldLine" />
+
+
+        <h1>題目</h1>
+        <p>@Html.DisplayFor(model => model.Question)</p>
+        @if (Model.QuestionImageLink != null)
+        {
+            @* 【注意】以下圖片是放在google硬碟https://drive.google.com/drive/folders/1RmAtSzaMKTU0rlaqr3rKMBR9PGVpOZUA?usp=sharing，用google寫好的方式embed進來的 *@
+            <div style=" position: relative; max-width: 100%;">
+                <iframe src="@(Model.QuestionImageLink)" style="width: 100%; height: 400px" allow="autoplay"></iframe>
+                <div style="width: 60px; height: 60px; position: absolute; opacity: 0; right: 0px; top: 0px;"> </div>
+            </div>
+        }
+
+        @using (Ajax.BeginForm("CheckExtendQ",
+     new AjaxOptions
+     {
+         HttpMethod = "POST",
+         UpdateTargetId = "result",
+         InsertionMode = InsertionMode.Replace
+     }))
+        {
+            <div class="form-horizontal">
+
+                @if (Model.MultipleChoice == true)
+                {
+                    //選項ABCD之類的
+                    int[] radioValue = Enumerable.Range(1, (int)Model.ChoiceNumber).ToArray();
+                    //選項文字
+                    string[] choiceText;
+                    if (Model.ChoiceText != null)
+                    {
+                        choiceText = Model.ChoiceText.Split('/');
+                    }
+                    else
+                    {
+                        choiceText = "A,B,C,D,E,F,G,H,I,J".Substring(0, (int)Model.ChoiceNumber * 2 - 1).Split(',');
+                    }
+                    for (int i = 0; i < Model.ChoiceNumber; i++)
+                    {
+                        <label for="@radioValue[i]">
+                            <input type="radio" id="@radioValue[i]" name="answer" value="@(radioValue[i] + "")">
+                            @choiceText[i]
+                        </label>
+                        <br>
+                    }
+                }
+                else
+                {
+                    <textarea name="answer" rows="6" cols="70" placeholder="請在此輸入答案......" style="min-width:100%" autofocus required></textarea>
+                }
+                <input type="submit" value="送出答案" class="btn default" onclick="return confirm('⚠送出後不可修改喔！！')" />
+            </div>
+        }
+        <br />
+        <div id="result"></div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>

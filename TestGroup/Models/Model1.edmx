@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="controlgroupModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ExtendQuestion">
+          <Key>
+            <PropertyRef Name="ExtendQuestionID" />
+          </Key>
+          <Property Name="ExtendQuestionID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="UnitID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="QuestionImage" Type="varbinary(max)" />
+          <Property Name="QuestionImageLink" Type="nvarchar(max)" />
+          <Property Name="Answer" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MultipleChoice" Type="bit" />
+          <Property Name="ChoiceText" Type="nvarchar(max)" />
+          <Property Name="ChoiceNumber" Type="int" />
+        </EntityType>
+        <EntityType Name="StudentTestGroup">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudentTestGroup_Unit_Junction">
+          <Key>
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="UnitID" />
+          </Key>
+          <Property Name="StudentID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="UnitID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="VideoWatched" Type="bit" Nullable="false" />
+          <Property Name="VideoElapsedTime" Type="bigint" Nullable="false" />
+          <Property Name="Answer" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Result" Type="bit" />
+          <Property Name="QuestionElapsedTime" Type="bigint" Nullable="false" />
+          <Property Name="ChatbotFinished" Type="bit" Nullable="false" />
+          <Property Name="ChatbotElapsedTime" Type="bigint" Nullable="false" />
+          <Property Name="ConceptMapAnswer" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ExtendQuestionAnswer" Type="nvarchar" MaxLength="1000" />
+          <Property Name="ExtendQuestionResult" Type="bit" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="UnitID" />
+          </Key>
+          <Property Name="UnitID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Week" Type="int" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="VideoLink" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="QuestionImage" Type="varbinary(max)" />
+          <Property Name="QuestionImageLink" Type="nvarchar(max)" />
+          <Property Name="Answer" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ConceptMap" Type="varbinary(max)" />
+          <Property Name="ConceptMapLink" Type="nvarchar(max)" />
+          <Property Name="ConceptMapDescription" Type="nvarchar(max)" />
+          <Property Name="KeyWords" Type="nvarchar(max)" />
+          <Property Name="VideoStartDate" Type="date" />
+          <Property Name="VideoEndDate" Type="date" />
+          <Property Name="VideoCoverImgLink" Type="nvarchar(max)" />
+          <Property Name="VideoLength" Type="float" />
+          <Property Name="MultipleChoice" Type="bit" />
+          <Property Name="ChoiceText" Type="nvarchar(max)" />
+          <Property Name="ChatbotAgentId" Type="nvarchar" MaxLength="60" />
+          <Property Name="ChatbotIntent" Type="nvarchar" MaxLength="30" />
+          <Property Name="ChoiceNumber" Type="int" />
+          <Property Name="QuestionStartDateTime" Type="datetime" />
+          <Property Name="QuestionEndDateTime" Type="datetime" />
+          <Property Name="ConceptMapStartDate" Type="date" />
+          <Property Name="ConceptMapEndDate" Type="date" />
+          <Property Name="MultipleChatbot" Type="bit" />
+          <Property Name="MultipleChatbotAgentID" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_ExtendQuestion_Unit">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+          <End Role="ExtendQuestion" Type="Self.ExtendQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="UnitID" />
+            </Principal>
+            <Dependent Role="ExtendQuestion">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentTestGroup_Unit_Junction_StudentTestGroup">
+          <End Role="StudentTestGroup" Type="Self.StudentTestGroup" Multiplicity="1" />
+          <End Role="StudentTestGroup_Unit_Junction" Type="Self.StudentTestGroup_Unit_Junction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentTestGroup">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="StudentTestGroup_Unit_Junction">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentTestGroup_Unit_Junction_Unit">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+          <End Role="StudentTestGroup_Unit_Junction" Type="Self.StudentTestGroup_Unit_Junction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="UnitID" />
+            </Principal>
+            <Dependent Role="StudentTestGroup_Unit_Junction">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="controlgroupModelStoreContainer">
+          <EntitySet Name="ExtendQuestion" EntityType="Self.ExtendQuestion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentTestGroup" EntityType="Self.StudentTestGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentTestGroup_Unit_Junction" EntityType="Self.StudentTestGroup_Unit_Junction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ExtendQuestion_Unit" Association="Self.FK_ExtendQuestion_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="ExtendQuestion" EntitySet="ExtendQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentTestGroup_Unit_Junction_StudentTestGroup" Association="Self.FK_StudentTestGroup_Unit_Junction_StudentTestGroup">
+            <End Role="StudentTestGroup" EntitySet="StudentTestGroup" />
+            <End Role="StudentTestGroup_Unit_Junction" EntitySet="StudentTestGroup_Unit_Junction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentTestGroup_Unit_Junction_Unit" Association="Self.FK_StudentTestGroup_Unit_Junction_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="StudentTestGroup_Unit_Junction" EntitySet="StudentTestGroup_Unit_Junction" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="controlgroupModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="StudentTestGroup">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="StudentTestGroup_Unit_Junction" Relationship="Self.FK_StudentTestGroup_Unit_Junction_StudentTestGroup" FromRole="StudentTestGroup" ToRole="StudentTestGroup_Unit_Junction" />
+        </EntityType>
+        <EntityType Name="StudentTestGroup_Unit_Junction">
+          <Key>
+            <PropertyRef Name="StudentID" />
+            <PropertyRef Name="UnitID" />
+          </Key>
+          <Property Name="StudentID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UnitID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VideoWatched" Type="Boolean" Nullable="false" />
+          <Property Name="VideoElapsedTime" Type="Int64" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Result" Type="Boolean" />
+          <Property Name="QuestionElapsedTime" Type="Int64" Nullable="false" />
+          <Property Name="ChatbotFinished" Type="Boolean" Nullable="false" />
+          <Property Name="ChatbotElapsedTime" Type="Int64" Nullable="false" />
+          <Property Name="ConceptMapAnswer" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="StudentTestGroup" Relationship="Self.FK_StudentTestGroup_Unit_Junction_StudentTestGroup" FromRole="StudentTestGroup_Unit_Junction" ToRole="StudentTestGroup" />
+          <NavigationProperty Name="Unit" Relationship="Self.FK_StudentTestGroup_Unit_Junction_Unit" FromRole="StudentTestGroup_Unit_Junction" ToRole="Unit" />
+          <Property Name="ExtendQuestionAnswer" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ExtendQuestionResult" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="UnitID" />
+          </Key>
+          <Property Name="UnitID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Week" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="VideoLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="QuestionImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="QuestionImageLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ConceptMap" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ConceptMapLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ConceptMapDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="KeyWords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VideoStartDate" Type="DateTime" Precision="0" />
+          <Property Name="VideoEndDate" Type="DateTime" Precision="0" />
+          <Property Name="VideoCoverImgLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VideoLength" Type="Double" />
+          <Property Name="MultipleChoice" Type="Boolean" />
+          <Property Name="ChoiceText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChatbotAgentId" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="ChatbotIntent" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ChoiceNumber" Type="Int32" />
+          <Property Name="QuestionStartDateTime" Type="DateTime" Precision="3" />
+          <Property Name="QuestionEndDateTime" Type="DateTime" Precision="3" />
+          <Property Name="ConceptMapStartDate" Type="DateTime" Precision="0" />
+          <Property Name="ConceptMapEndDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="StudentTestGroup_Unit_Junction" Relationship="Self.FK_StudentTestGroup_Unit_Junction_Unit" FromRole="Unit" ToRole="StudentTestGroup_Unit_Junction" />
+          <Property Name="MultipleChatbot" Type="Boolean" />
+          <Property Name="MultipleChatbotAgentID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ExtendQuestion" Relationship="controlgroupModel.FK_ExtendQuestion_Unit" FromRole="Unit" ToRole="ExtendQuestion" />
+        </EntityType>
+        <Association Name="FK_StudentTestGroup_Unit_Junction_StudentTestGroup">
+          <End Role="StudentTestGroup" Type="Self.StudentTestGroup" Multiplicity="1" />
+          <End Role="StudentTestGroup_Unit_Junction" Type="Self.StudentTestGroup_Unit_Junction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StudentTestGroup">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="StudentTestGroup_Unit_Junction">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentTestGroup_Unit_Junction_Unit">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+          <End Role="StudentTestGroup_Unit_Junction" Type="Self.StudentTestGroup_Unit_Junction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="UnitID" />
+            </Principal>
+            <Dependent Role="StudentTestGroup_Unit_Junction">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="testgroupEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="StudentTestGroup" EntityType="Self.StudentTestGroup" />
+          <EntitySet Name="StudentTestGroup_Unit_Junction" EntityType="Self.StudentTestGroup_Unit_Junction" />
+          <EntitySet Name="Unit" EntityType="Self.Unit" />
+          <AssociationSet Name="FK_StudentTestGroup_Unit_Junction_StudentTestGroup" Association="Self.FK_StudentTestGroup_Unit_Junction_StudentTestGroup">
+            <End Role="StudentTestGroup" EntitySet="StudentTestGroup" />
+            <End Role="StudentTestGroup_Unit_Junction" EntitySet="StudentTestGroup_Unit_Junction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentTestGroup_Unit_Junction_Unit" Association="Self.FK_StudentTestGroup_Unit_Junction_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="StudentTestGroup_Unit_Junction" EntitySet="StudentTestGroup_Unit_Junction" />
+          </AssociationSet>
+          <EntitySet Name="ExtendQuestion" EntityType="controlgroupModel.ExtendQuestion" />
+          <AssociationSet Name="FK_ExtendQuestion_Unit" Association="controlgroupModel.FK_ExtendQuestion_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="ExtendQuestion" EntitySet="ExtendQuestion" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ExtendQuestion">
+          <Key>
+            <PropertyRef Name="ExtendQuestionID" />
+          </Key>
+          <Property Name="ExtendQuestionID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UnitID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Question" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="QuestionImageLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Answer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MultipleChoice" Type="Boolean" />
+          <Property Name="ChoiceText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChoiceNumber" Type="Int32" />
+          <NavigationProperty Name="Unit" Relationship="controlgroupModel.FK_ExtendQuestion_Unit" FromRole="ExtendQuestion" ToRole="Unit" />
+        </EntityType>
+        <Association Name="FK_ExtendQuestion_Unit">
+          <End Type="controlgroupModel.Unit" Role="Unit" Multiplicity="1" />
+          <End Type="controlgroupModel.ExtendQuestion" Role="ExtendQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="UnitID" />
+            </Principal>
+            <Dependent Role="ExtendQuestion">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="controlgroupModelStoreContainer" CdmEntityContainer="testgroupEntities">
+          <EntitySetMapping Name="StudentTestGroup">
+            <EntityTypeMapping TypeName="controlgroupModel.StudentTestGroup">
+              <MappingFragment StoreEntitySet="StudentTestGroup">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentTestGroup_Unit_Junction">
+            <EntityTypeMapping TypeName="controlgroupModel.StudentTestGroup_Unit_Junction">
+              <MappingFragment StoreEntitySet="StudentTestGroup_Unit_Junction">
+                <ScalarProperty Name="ExtendQuestionResult" ColumnName="ExtendQuestionResult" />
+                <ScalarProperty Name="ExtendQuestionAnswer" ColumnName="ExtendQuestionAnswer" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="VideoWatched" ColumnName="VideoWatched" />
+                <ScalarProperty Name="VideoElapsedTime" ColumnName="VideoElapsedTime" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="QuestionElapsedTime" ColumnName="QuestionElapsedTime" />
+                <ScalarProperty Name="ChatbotFinished" ColumnName="ChatbotFinished" />
+                <ScalarProperty Name="ChatbotElapsedTime" ColumnName="ChatbotElapsedTime" />
+                <ScalarProperty Name="ConceptMapAnswer" ColumnName="ConceptMapAnswer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Unit">
+            <EntityTypeMapping TypeName="controlgroupModel.Unit">
+              <MappingFragment StoreEntitySet="Unit">
+                <ScalarProperty Name="MultipleChatbotAgentID" ColumnName="MultipleChatbotAgentID" />
+                <ScalarProperty Name="MultipleChatbot" ColumnName="MultipleChatbot" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="Week" ColumnName="Week" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="VideoLink" ColumnName="VideoLink" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="QuestionImage" ColumnName="QuestionImage" />
+                <ScalarProperty Name="QuestionImageLink" ColumnName="QuestionImageLink" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="ConceptMap" ColumnName="ConceptMap" />
+                <ScalarProperty Name="ConceptMapLink" ColumnName="ConceptMapLink" />
+                <ScalarProperty Name="ConceptMapDescription" ColumnName="ConceptMapDescription" />
+                <ScalarProperty Name="KeyWords" ColumnName="KeyWords" />
+                <ScalarProperty Name="VideoStartDate" ColumnName="VideoStartDate" />
+                <ScalarProperty Name="VideoEndDate" ColumnName="VideoEndDate" />
+                <ScalarProperty Name="VideoCoverImgLink" ColumnName="VideoCoverImgLink" />
+                <ScalarProperty Name="VideoLength" ColumnName="VideoLength" />
+                <ScalarProperty Name="MultipleChoice" ColumnName="MultipleChoice" />
+                <ScalarProperty Name="ChoiceText" ColumnName="ChoiceText" />
+                <ScalarProperty Name="ChatbotAgentId" ColumnName="ChatbotAgentId" />
+                <ScalarProperty Name="ChatbotIntent" ColumnName="ChatbotIntent" />
+                <ScalarProperty Name="ChoiceNumber" ColumnName="ChoiceNumber" />
+                <ScalarProperty Name="QuestionStartDateTime" ColumnName="QuestionStartDateTime" />
+                <ScalarProperty Name="QuestionEndDateTime" ColumnName="QuestionEndDateTime" />
+                <ScalarProperty Name="ConceptMapStartDate" ColumnName="ConceptMapStartDate" />
+                <ScalarProperty Name="ConceptMapEndDate" ColumnName="ConceptMapEndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExtendQuestion">
+            <EntityTypeMapping TypeName="controlgroupModel.ExtendQuestion">
+              <MappingFragment StoreEntitySet="ExtendQuestion">
+                <ScalarProperty Name="ChoiceNumber" ColumnName="ChoiceNumber" />
+                <ScalarProperty Name="ChoiceText" ColumnName="ChoiceText" />
+                <ScalarProperty Name="MultipleChoice" ColumnName="MultipleChoice" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="QuestionImageLink" ColumnName="QuestionImageLink" />
+                <ScalarProperty Name="QuestionImage" ColumnName="QuestionImage" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="ExtendQuestionID" ColumnName="ExtendQuestionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

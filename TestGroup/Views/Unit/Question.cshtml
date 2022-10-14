@@ -1,0 +1,90 @@
+﻿@model TestGroup.Models.Unit
+
+@{
+    ViewBag.Title = "題目";
+}
+<style>
+    /*    .questionBlock {
+        background-color: rgba(255, 255, 255,0.7);
+        padding: 30px;
+        border-radius: 30px;
+        position: relative;
+        font-size:20px
+    }*/
+</style>
+<h1>@ViewBag.week</h1>
+<h1>@ViewBag.questionOrder</h1>
+
+<div class="container" style="min-height:400px">
+    <div class="row">
+        <div class="col-md-5">
+            <h3><b>忘記了嗎？偷瞄一下喔！</b></h3>
+            <h4><b>下一節上課前要完成喔！</b></h4>
+            @*<iframe src="@Model.VideoLink" style="width:100%; height:50vh" ></iframe>*@
+            <div style="width: 380px; height: 240px; position: relative;margin:10px auto 10px auto">
+                <iframe src="@Model.VideoLink" class="shadow" width="380" height="240" frameborder="0" scrolling="no" seamless=""></iframe>
+                <div style="width: 60px; height: 60px; position: absolute; opacity: 0; right: 0px; top: 0px;"> </div>
+            </div>
+
+        </div>
+        <div class="col-md-7 whiteBlock shadow">
+            <h2><b>題目：</b></h2>
+            <p>@Html.DisplayFor(model => model.Question)</p>
+            @*<img src="@(Model.QuestionImageLink)" style="max-width: 100%; " />*@
+            @if (Model.QuestionImageLink != null)
+            {
+                @* 【注意】以下圖片是放在google硬碟https://drive.google.com/drive/folders/1RmAtSzaMKTU0rlaqr3rKMBR9PGVpOZUA?usp=sharing，用google寫好的方式embed進來的 *@
+                <div style=" position: relative; max-width: 100%;">
+                    <iframe src="@(Model.QuestionImageLink)" style="width: 100%; height: 400px" allow="autoplay"></iframe>
+                    <div style="width: 60px; height: 60px; position: absolute; opacity: 0; right: 0px; top: 0px;"> </div>
+                </div>
+            }
+
+            <hr class="goldLine" />
+
+
+            @using (Html.BeginForm())
+            {
+                <div class="form-horizontal">
+
+                    @if (Model.MultipleChoice == true)
+                    {
+                        //選項ABCD之類的
+                        int[] radioValue = Enumerable.Range(1, (int)Model.ChoiceNumber).ToArray();
+                        //選項文字
+                        string[] choiceText;
+                        if (Model.ChoiceText != null)
+                        {
+                            choiceText = Model.ChoiceText.Split('/');
+                        }
+                        else
+                        {
+                            choiceText = "A,B,C,D,E,F,G,H,I,J".Substring(0, (int)Model.ChoiceNumber * 2 - 1).Split(',');
+                        }
+                        for (int i = 0; i < Model.ChoiceNumber; i++)
+                        {
+                            <label for="@radioValue[i]">
+                                <input type="radio" id="@radioValue[i]" name="answer" value="@(radioValue[i] + "")">
+                                @choiceText[i]
+                            </label>
+                            <br>
+                        }
+                    }
+                    else
+                    {
+                        <textarea name="answer" rows="6" cols="70" placeholder="請在此輸入答案......" style="min-width:100%" autofocus required></textarea>
+                    }
+                    <input type="hidden" name="startTime" value="@DateTime.Now">
+                    <input type="submit" value="送出答案" class="btn default" onclick="return confirm('⚠送出後不可修改喔！！')" />
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function send() {
+
+    }
+</script>

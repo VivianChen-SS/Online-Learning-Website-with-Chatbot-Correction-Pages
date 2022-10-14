@@ -1,0 +1,92 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    /*我自己加的背景*/
+    /*  background-image: url("https://i.ibb.co/tZf6k6h/background1.png");
+  background-image: url("https://i.ibb.co/y6xN9gg/background2.png");*/
+    background-image: url('../picture/background1.png');
+    /*background-image: url('../picture/background2.png');*/
+    background-repeat: no-repeat, repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    /*我自己加的背景*/
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+
+
+
+/*我自己加，很多頁會用到的style*/
+.goldLine {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #DAA520, rgba(0, 0, 0, 0));
+}
+
+.shadow {
+    /*box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;*/
+    /*box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;*/
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+
+.shadow2 {
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+}
+
+.whiteBlock {
+    background-color: rgba(255, 255, 255,0.8);
+    padding: 30px;
+    border-radius: 30px;
+    position: relative;
+    font-size: 20px
+}
+
+#nav_bar .active {
+    color: #F8F8F8;
+    background-color: #4f81bd;
+}
+
+/*Title */
+h1 {
+    color: white;
+    background: #568f8f;
+    font-size: 45px;
+    line-height: 90px;
+    font-weight: 700;
+    margin: 5px;
+    padding: 5px;
+    font-family: 'Libre Baskerville', serif;
+    width: fit-content;
+    display: inline;
+    box-shadow: rgba(0, 0, 0, 0.33) 0px 10px 35px 4px;
+}
+
+
+.punchline h1 {
+    color: white;
+    background: #568f8f;
+}
+/*Title */
+
+
+/*我自己加，很多頁會用到的style*/
