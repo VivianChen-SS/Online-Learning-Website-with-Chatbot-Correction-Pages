@@ -3,8 +3,7 @@
     ViewBag.Title = "教學影片";
 }
 
-<h1>@ViewBag.week</h1>
-<h1>@ViewBag.questionOrder</h1>
+<h1>第 @Model.Week 週</h1> <h1>第 @Model.Number 題</h1>
 
 @* 其實我原本想要這樣寫，但是又上繳的pop out window很擾人，所以只好寫死長寬，position改成absolute，拿一個div遮住 *@
 @*<div class="row">

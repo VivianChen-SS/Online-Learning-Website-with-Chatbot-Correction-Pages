@@ -8,7 +8,7 @@ namespace TestGroup.Models
     public class UnitTitleViewModels
     {
         public string unitID { get; set; }
-        public string week { get; set; }
-        public string number { get; set; }
+        public int week { get; set; }
+        public int number { get; set; }
     }
 }
