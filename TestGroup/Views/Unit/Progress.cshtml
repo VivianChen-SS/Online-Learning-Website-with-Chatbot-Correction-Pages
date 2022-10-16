@@ -171,7 +171,7 @@
         {
             <div class="col-md-3 col-sm-4 col-xs-6">
                 <p>
-                    @Ajax.ActionLink(string.Format(item.week + " 的 " + item.number), "UnitProcess",
+                    @Ajax.ActionLink(string.Format("第" + item.week + "週 的 第" + item.number+"題"), "UnitProcess",
                     new { id = item.unitID },
                     new AjaxOptions
                     {

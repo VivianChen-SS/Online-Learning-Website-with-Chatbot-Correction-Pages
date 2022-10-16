@@ -24,8 +24,7 @@
         --df-messenger-user-message: #80b3b3;
     }
 </style>
-<h1>@ViewBag.week</h1>
-<h1>@ViewBag.questionOrder</h1>
+<h1>第 @Model.Week 週</h1>  <h1>第 @Model.Number 題</h1>
 <div class="whiteBlock shadow" style="margin:auto 40px;position:relative">
     <div class="whiteBlockHead">
         <br />
@@ -75,7 +74,7 @@
 @*以下是chatbot的部分*@
 @{ string agentID = Model.MultipleChatbot == true ? ViewBag.AgentID : Model.ChatbotAgentId;}
 <df-messenger intent="@Model.ChatbotIntent"
-              chat-title="@(@ViewBag.week) 的 @(@ViewBag.questionOrder)"
+              chat-title="第@(Model.Week)週 的 第@(Model.Number)題"
               agent-id="@agentID"
               language-code="zh-tw"
               chat-icon="https://i.ibb.co/HFBF1r2/icon.png"></df-messenger>

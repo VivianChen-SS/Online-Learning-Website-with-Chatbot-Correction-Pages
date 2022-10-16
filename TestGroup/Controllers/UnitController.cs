@@ -83,7 +83,6 @@ namespace TestGroup.Controllers
                 Unit unit = db.Unit.Where(u => u.UnitID == id).Single();
                 if (unit.VideoStartDate.Value < DateTime.Now && unit.VideoEndDate > DateTime.Now) //在開放時間內 (其實index的button已經擋掉了，這裡是防直接用網址連進來的)
                 {
-                    setTitle(unit);
                     return View(unit);
                 }
                 else
@@ -132,7 +131,6 @@ namespace TestGroup.Controllers
                     Unit unit = record.Unit; //有紀錄，尚未達題者請進，應該是從WatchVideo來的 or 看完影片中途跳開的
                     if (unit.QuestionStartDateTime.Value < DateTime.Now && unit.QuestionEndDateTime > DateTime.Now) //在開放時間內 (其實index的button已經擋掉了，這裡是防直接用網址連進來的)
                     {
-                        setTitle(unit);
                         return View(unit);
                     }
                     else
@@ -211,7 +209,6 @@ namespace TestGroup.Controllers
                         }
                         //製作完成連結密碼
                         ViewBag.secret = Crypto.HashPassword(record.StudentID);
-                        setTitle(unit);
                         return View(unit);
                     }
                     else
@@ -369,8 +366,6 @@ namespace TestGroup.Controllers
                 ViewBag.selectedUnitID = id;
 
                 //弄那一串標題選項
-                string[] week = { "沒有第零週", "第一週", "第二週", "第三週", "第四週" };
-                string[] questionOrder = { "沒有第零題", "第一題", "第二題", "第三題" };
                 var unitList = db.Unit.ToList();
                 List<UnitTitleViewModels> unitTitleList = new List<UnitTitleViewModels>();
                 foreach (var item in unitList)
@@ -378,8 +373,8 @@ namespace TestGroup.Controllers
                     unitTitleList.Add(new UnitTitleViewModels
                     {
                         unitID = item.UnitID,
-                        week = week[item.Week],
-                        number = questionOrder[item.Number]
+                        week = item.Week,
+                        number = item.Number
                     });
                 }
                 //系統LINQ版本太舊，以下不能用，不是code寫錯@@"...............於是我只好像上面那樣，開一個ViewModels了
@@ -505,10 +500,8 @@ namespace TestGroup.Controllers
 
         private void setTitle(Unit unit)
         {
-            string[] week = { "沒有第零週", "第一週", "第二週", "第三週", "第四週" };
-            string[] questionOrder = { "沒有第零題", "第一題", "第二題", "第三題" };
-            ViewBag.week = week[unit.Week];
-            ViewBag.questionOrder = questionOrder[unit.Number];
+            ViewBag.week = unit.Week;
+            ViewBag.questionNumber = unit.Number;
         }
     }
 }
