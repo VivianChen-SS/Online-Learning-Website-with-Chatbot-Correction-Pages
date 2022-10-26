@@ -191,6 +191,7 @@
     <Content Include="picture\check_green.png" />
     <Content Include="picture\cross_red.png" />
     <Content Include="picture\error.png" />
+    <Content Include="picture\locked.png" />
     <Content Include="picture\lock_gray.png" />
     <Content Include="picture\pen_blue.png" />
     <Content Include="picture\popoutbackground.jpg" />

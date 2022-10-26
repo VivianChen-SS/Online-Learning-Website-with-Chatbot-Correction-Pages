@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using TestGroup.Models;
@@ -74,15 +75,15 @@ namespace TestGroup.Controllers
             {
                 string studentID = Session["studentID"] + "";
                 var records = db.StudentTestGroup_Unit_Junction.Where(a => a.StudentID == studentID).OrderBy(a => a.UnitID);
-                var units = db.Unit.OrderBy(a => a.UnitID);
-                bool[] finished = new bool[units.Count()];
-                //後來回頭看，覺得自己頗蠢的@@"，為什麼不直接foreach篩選要return的units？？但我也懶得改了哈哈哈哈
-                foreach (var rec in records)
+                List <Unit> units = new List<Unit>();
+                foreach (var record in records)
                 {
-                    finished[Int32.Parse(rec.UnitID) - 1] = rec.Result == true || rec.ExtendQuestionAnswer != null ? true : false;
+                    Unit unit = db.Unit.Where(a => a.UnitID == record.UnitID).Single();
+                    units.Add(unit);
                 }
-                ViewBag.finished = finished;
-                return View(units.ToList());
+                Object[] idList = db.Unit.OrderBy(a => a.UnitID).Select(a => a.UnitID).ToArray();
+                ViewBag.idList = idList;
+                return View(units);
             }
             return RedirectToAction("Login");
         }
