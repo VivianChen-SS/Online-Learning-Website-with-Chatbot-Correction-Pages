@@ -69,6 +69,17 @@ namespace TestGroup.Controllers
             return RedirectToAction("Login");
         }
 
+        [HttpPost, ActionName("Index")]
+        public ActionResult KillOrder()
+        {
+            String studentID = Session["studentID"] + "";
+            db.StudentTestGroup_Unit_Junction.RemoveRange(
+                db.StudentTestGroup_Unit_Junction.Where(a => a.StudentID == studentID)
+                );
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Resources()
         {
             if (Session["studentID"] != null)

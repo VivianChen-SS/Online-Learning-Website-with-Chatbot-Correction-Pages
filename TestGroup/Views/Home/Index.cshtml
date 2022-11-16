@@ -36,6 +36,11 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
+    .wideLine {
+        border: 0;
+        height: 3px;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(153, 0, 0), rgba(0, 0, 0, 0));
+    }
 </style>
 <h1>歡迎</h1>
 <h1>@ViewBag.StudentName</h1>
@@ -95,3 +100,19 @@
     alert(msg);
     </script>
 }
+
+@* 重制按鈕 Reset Button *@
+<div class="whiteBlock">
+    @using (Html.BeginForm())
+    {
+        <h2>清除以上進度 Clear All Progress</h2>
+        <hr class="wideLine" />
+        <h4>若本帳號已完成所有練習，請按此按鈕，清空學習紀錄，繼續體驗學習區功能 </h4>
+        <h4>這是demo版的功能，在實際學生操作版上沒有 </h4>
+        <h4>click this button to clear all learning progress if all the exercises were completed on this account</h4>
+        <h4>this feature only exists on this demo version, it's not available to students </h4>
+        <input type="submit" value="清除 Clear" class="btn no btn-danger" onclick="return confirm('⚠清除後紀錄都會不見喔！ The records will disappear after reset!')" />
+    }
+</div>
+
+@* 重制按鈕 Reset Button *@
