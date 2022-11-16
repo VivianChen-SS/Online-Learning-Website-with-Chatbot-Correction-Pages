@@ -50,7 +50,7 @@ It's an Asp.Net MVC5 website for students to learn computer programs and correct
 The example units are heap and heapsort algorithms.
 
 ### How to Use
-<img src="https://user-images.githubusercontent.com/52370596/200298988-99440d78-2839-46e3-83b1-95bf0b6db6f0.png" width="750" height="400">
+<img src="https://user-images.githubusercontent.com/52370596/200298988-99440d78-2839-46e3-83b1-95bf0b6db6f0.png" width="800" height="420">
 1. Choose any unit on the home page, and start the lesson.<br>
 2. In each unit, the user will watch the tutorial and then answer a question related to the video. If the user gets the answer wrong, he or she will be directed to the chatbot page for correction, then the system will lead the user to answer a similar question again.<br>
 3. The unit review page will unlock the units finished by the user.<br>
