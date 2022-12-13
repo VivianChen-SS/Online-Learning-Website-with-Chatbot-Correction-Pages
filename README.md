@@ -37,7 +37,7 @@
         <a href="#about-me">About Me</a>
         <ul>
           <li><a href="#how-it-was-created">How it was Created</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#contact-me">Contact Me</a></li>
         </ul>
       </li>
     </ol>
