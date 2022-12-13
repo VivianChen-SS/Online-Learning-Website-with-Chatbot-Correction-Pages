@@ -5,7 +5,7 @@
   <img src="https://user-images.githubusercontent.com/52370596/200297466-9aebdc87-524a-4d70-8a1c-628e97b2cc29.png" width="600" height="auto">
    
 
-  <h3 align="center">Learning System with Chatbot Correction Page</h3>
+  <h3 align="center"><a href="https://dsta.azurewebsites.net/"><strong>Learning System with Chatbot Correction Page</strong></a></h3>
 
   <p align="center">
     <strong>Log in ID : visitor </strong>
@@ -37,7 +37,7 @@
         <a href="#about-me">About Me</a>
         <ul>
           <li><a href="#how-it-was-created">How it was Created</a></li>
-          <li><a href="#contact-me">Contact Me</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
       </li>
     </ol>
@@ -45,7 +45,7 @@
   
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-Hi, this is a demo version of the learning system mentioned in my <b><a href="https://hdl.handle.net/11296/4pm258">master's thesis</a></b>. <br/>
+Hi, this is a demo version of the learning system mentioned in my <b><a href="https://doi.org/10.1007/s10639-022-11506-6">master's thesis</a></b>. <br/>
 It's an Asp.Net MVC5 website for students to learn computer programs and correct wrong answers with chatbots. <br>
 The example units are heap and heapsort algorithms.
 
