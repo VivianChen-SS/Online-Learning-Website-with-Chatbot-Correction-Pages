@@ -85,7 +85,9 @@ namespace TestGroup.Controllers
             if (Session["studentID"] != null)
             {
                 string studentID = Session["studentID"] + "";
-                var records = db.StudentTestGroup_Unit_Junction.Where(a => a.StudentID == studentID).OrderBy(a => a.UnitID);
+                var records = db.StudentTestGroup_Unit_Junction
+                    .Where(a => a.StudentID == studentID && (a.Result == true || a.ExtendQuestionAnswer != null))
+                    .OrderBy(a => a.UnitID);
                 List <Unit> units = new List<Unit>();
                 foreach (var record in records)
                 {
